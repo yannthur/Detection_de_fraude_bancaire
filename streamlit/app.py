@@ -9,7 +9,6 @@ from sklearn.preprocessing import PowerTransformer
 import numpy as np
 from sklearn.preprocessing import RobustScaler
 from sklearn.decomposition import KernelPCA
-import time
 
 # --- Fonctions de prétraitement ---
 def BoxCoxTransformation(X):
