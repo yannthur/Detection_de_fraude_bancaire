@@ -9,7 +9,7 @@ from sklearn.preprocessing import PowerTransformer
 import numpy as np
 from sklearn.preprocessing import RobustScaler
 from sklearn.decomposition import KernelPCA
-import os
+import time
 
 # --- Fonctions de prétraitement ---
 def BoxCoxTransformation(X):
@@ -23,20 +23,10 @@ def BoxCoxTransformation(X):
         
     return X
 
+@st.cache_data
 def load_data():
-    # Try multiple possible paths for the data file
-    possible_paths = [
-        "data/data.csv",  # If running from root
-        "../data/data.csv",  # Original path
-        "data.csv",  # If data.csv is in same directory
-        "Fraud_light.csv"  # Alternative file name from your structure
-    ]
-    
-    for path in possible_paths:
-        if os.path.exists(path):
-            data = pd.read_csv(path)
-            st.success(f"✅ Data loaded successfully from: {path}")
-            return data
+    data = pd.read_csv("../data/data.csv")
+    return data
 
 def LabelEncoder_(data):
     le = LabelEncoder()
@@ -45,23 +35,9 @@ def LabelEncoder_(data):
 
 # --- Chargement des ressources ---
 @st.cache_resource
-def load_model(model_path=None):
-    # Try multiple possible paths for the model file
-    possible_paths = [
-        "model/model.pkl",  # If running from root
-        "../model/model.pkl",  # Original path
-        "model.pkl",  # If model.pkl is in same directory
-    ]
-    
-    if model_path:
-        possible_paths.insert(0, model_path)
-    
-    for path in possible_paths:
-        if os.path.exists(path):
-            with open(path, "rb") as f:
-                model = pickle.load(f)
-            st.success(f"✅ Model loaded successfully from: {path}")
-            return model
+def load_model(model_path):
+    with open(model_path, "rb") as f:
+        return pickle.load(f)
 
 def load_lottiefile(filepath: str):
     try:
@@ -608,7 +584,7 @@ if nav_bar == "Accueil":
     
     with col2:
         st.markdown('<div class="animate-on-scroll float-animation" style="animation-delay: 0.4s">', unsafe_allow_html=True)
-        lottie_animation = load_lottiefile("/acceuil1.json")
+        lottie_animation = load_lottiefile("acceuil1.json")
         if lottie_animation:
             st_lottie(lottie_animation, loop=True, quality='high', height=400, key="home-anim")
         else:
