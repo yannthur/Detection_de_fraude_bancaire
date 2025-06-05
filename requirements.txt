@@ -2,6 +2,5 @@ streamlit
 streamlit-option-menu 
 streamlit-lottie 
 pandas
-pickle
 sklearn
 numpy 
