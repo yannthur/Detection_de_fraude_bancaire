@@ -25,7 +25,7 @@ def BoxCoxTransformation(X):
 
 @st.cache_data
 def load_data():
-    data = pd.read_csv("../data/data.csv")
+    data = pd.read_csv("/data.csv")
     return data
 
 def LabelEncoder_(data):
@@ -584,7 +584,7 @@ if nav_bar == "Accueil":
     
     with col2:
         st.markdown('<div class="animate-on-scroll float-animation" style="animation-delay: 0.4s">', unsafe_allow_html=True)
-        lottie_animation = load_lottiefile("acceuil1.json")
+        lottie_animation = load_lottiefile("/acceuil1.json")
         if lottie_animation:
             st_lottie(lottie_animation, loop=True, quality='high', height=400, key="home-anim")
         else:
